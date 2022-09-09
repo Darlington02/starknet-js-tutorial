@@ -16,7 +16,7 @@ func storeName{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr}(
     return ()
 end
 
-@external
+@view
 func getName{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr}(
     _address: felt
 ) -> (name: felt):
