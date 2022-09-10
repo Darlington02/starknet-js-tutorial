@@ -2,13 +2,14 @@ import './App.css';
 import { useState, useEffect } from "react"
 import { connect } from "@argent/get-starknet"
 import { Contract } from "starknet"
+import { encodeShortString } from "starknet/dist/utils/shortString";
 
 import contractAbi from "./abis/main_abi.json"
 
 const contractAddress = "0x049e5c0e9fbb072d7f908e77e117c76d026b8daf9720fe1d74fa3309645eabce"
 
 function App() {
-  const [account, setAccount] = useState('')
+  const [provider, setProvider] = useState('')
   const [address, setAddress] = useState('')
   const [name, setName] = useState('')
   const [inputAddress, setInputAddress] = useState('')
@@ -20,8 +21,8 @@ function App() {
       const starknet = await connect()
       // connect to the wallet
       await starknet?.enable({ starknetVersion: "v4" })
-      // set account object
-      setAccount(starknet.account)
+      // set account provider
+      setProvider(starknet.account)
       // set user address
       setAddress(starknet.selectedAddress)
       // set connection status
@@ -29,6 +30,20 @@ function App() {
     }
     catch(error){
       alert(error.message)
+    }
+  }
+
+  const setNameFunction = async() => {
+    try{
+      // initialize contract using abi, address and provider
+      const contract = new Contract(contractAbi, contractAddress, provider)
+      const nameToFelt = encodeShortString(name)
+      await contract.storeName(nameToFelt)
+      alert("You've successfully stored your name in the address!")
+    }
+    catch(error){
+      alert(error.message)
+      console.log(error)
     }
   }
 
@@ -55,9 +70,9 @@ function App() {
               <p>Insert a Name to store on Contract.</p>
 
               <div className="cardForm">
-                <input type="text" className="input" placeholder="Enter Name" />
+                <input type="text" className="input" placeholder="Enter Name" onChange={(e) => setName(e.target.value)} />
 
-                <input type="submit" className="button" value="Store Name" />
+                <input type="submit" className="button" value="Store Name" onClick={() => setNameFunction()} />
               </div>
 
               <p>Name: </p>
