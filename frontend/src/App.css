@@ -32,7 +32,7 @@
 }
 
 .title a {
-  color: #0070f3;
+  color: #f4775b;
   text-decoration: none;
 }
 
@@ -119,14 +119,19 @@
 .input {
   width: 70%;
   height: 40px;
+  color: white;
+  background: none;
+  border: none;
+  border-bottom: 2px solid white;
 }
 
 .button {
   width: 30%;
   height: 45px;
+  margin-left: 5px;
   background: #f56342;
   border: none;
-  border-radius: 0px 7px 7px 0px;
+  border-radius: 7px;
   color: white;
   cursor: pointer;
 }

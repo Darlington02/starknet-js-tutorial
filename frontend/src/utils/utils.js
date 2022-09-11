@@ -1,3 +1,5 @@
+import {Buffer} from 'buffer'
+
 export function feltToString(felt) {
     const newStrB = Buffer.from(felt.toString(16), 'hex')
     return newStrB.toString()
