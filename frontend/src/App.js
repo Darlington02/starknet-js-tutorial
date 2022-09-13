@@ -1,6 +1,6 @@
 import './App.css';
 import { useState, useEffect } from "react"
-import { connect } from "@argent/get-starknet"
+import { connect } from "get-starknet"
 import { Contract } from "starknet"
 import { toBN } from "starknet/dist/utils/number"
 import { feltToString, stringToFelt } from './utils/utils'
@@ -19,9 +19,9 @@ function App() {
 
   const connectWallet = async() => {
     try{
-      // using argentx
+      // let the user choose a starknet wallet
       const starknet = await connect()
-      // connect to the wallet
+      // connect to the user-chosen wallet
       await starknet?.enable({ starknetVersion: "v4" })
       // set account provider
       setProvider(starknet.account)
@@ -78,7 +78,7 @@ function App() {
             Starknet<a href="#"> ENS</a>
           </h1>
           {
-            isConnected ? 
+            isConnected ?
             <button className="connect">{address.slice(0, 5)}...{address.slice(60)}</button> :
             <button className="connect" onClick={() => connectWallet()}>Connect wallet</button>
           }
